@@ -1,0 +1,17 @@
+<div class="container">
+    <form [formGroup]="searchForm" class="searchBar" (ngSubmit)="onSearchSubmit()">
+      <input
+        type="text"
+        formControlName="searchValue"
+        placeholder="Buscar Pokémon"
+        class="searchBarInput"
+      />
+    </form>
+    <div class="pokemonsTable">
+        <div *ngFor="let pokemon of pokemons">
+          <div class="pokemon-card">
+            <button class="details-button" [routerLink]="['/pokemon', pokemon.name]" >{{ pokemon.name }}</button>
+          </div>
+        </div>
+      </div>
+  </div>

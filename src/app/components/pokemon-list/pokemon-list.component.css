@@ -1,0 +1,49 @@
+  .container {
+    margin-top: 50px;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    height: 100vh; 
+  }
+  
+  .searchBar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .searchBarInput {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+    text-align: center;
+    font-family: 'PokemonSolid', sans-serif;
+  }
+  
+  .pokemonsTable {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    gap: 20px; 
+  }
+  
+  .details-button {
+    background-color: #f03131;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    width: 200px;
+    font-family: 'PokemonSolid', sans-serif;
+  }
+  
+  .details-button:hover {
+    background-color: #f031318e;
+    transform: scale(1.05);
+  }

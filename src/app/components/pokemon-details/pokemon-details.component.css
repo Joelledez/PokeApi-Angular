@@ -1,0 +1,83 @@
+.pokemon-detail-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: black;
+    padding: 20px;
+  }
+  
+  .pokemon-card {
+    background: whitesmoke;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 350px;
+  }
+  
+  .pokemon-name {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 10px;
+    font-family: 'PokemonSolid', sans-serif;
+  }
+  
+  .pokemon-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  .pokemon-info {
+    margin-top: 15px;
+    text-align: left;
+  }
+  
+  .pokemon-info p {
+    font-size: 16px;
+    color: #555;
+    font-family: 'PokemonSolid', sans-serif;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    font-size: 14px;
+    color: white;
+    background:black;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 5px;
+    font-family: 'PokemonSolid', sans-serif;
+  }
+  
+  .pokemon-description {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+    font-family: 'PokemonSolid', sans-serif;
+  }
+  
+  
+  
+  .back-button {
+    margin-top: 15px;
+    text-decoration: none;
+    color: white;
+    background: black;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s;
+    font-family: 'PokemonSolid', sans-serif;
+  }
+  
+  .back-button:hover {
+    background: #f03131;
+  }
