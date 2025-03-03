@@ -1,30 +1,30 @@
 <div class="container">
-    <h1>Gestión de Pokémon</h1>
-  
-    <!-- Formulario -->
-    <form [formGroup]="pokemonForm" (ngSubmit)="editMode ? updatePokemon() : addPokemon()">
-      <input type="text" formControlName="name" placeholder="Nombre del Pokémon" required>
-      <input type="number" formControlName="height" placeholder="Altura (cm)" required>
-      <input type="number" formControlName="weight" placeholder="Peso (kg)" required>
-      <input type="text" formControlName="abilities" placeholder="Habilidades (separadas por comas)" required>
-      <input type="text" formControlName="image" placeholder="URL de imagen" required>
-      <button type="submit">{{ editMode ? 'Actualizar' : 'Agregar' }}</button>
-      <button type="button" *ngIf="editMode" (click)="cancelEdit()">Cancelar</button>
-    </form>
-  
-    <!-- Lista de Pokémon -->
-    <div class="pokemon-grid">
-      <div *ngFor="let pokemon of pokemons; let i = index" class="pokemon-card">
-        <img [src]="pokemon.image" [alt]="pokemon.name">
-        <h3>{{ pokemon.name }}</h3>
-        <p>Altura: {{ pokemon.height }} cm</p>
-        <p>Peso: {{ pokemon.weight }} kg</p>
-        <p>Habilidades: {{ pokemon.abilities.join(', ') }}</p>
-        <p>Descripción: {{ pokemon.description }}</p>
-        
-        <button (click)="editPokemon(i)">Editar</button>
-        <button (click)="deletePokemon(i)">Eliminar</button>
-      </div>
+  <h2>Gestión de Pokémon</h2>
+
+  <form [formGroup]="pokemonForm" (ngSubmit)="editMode ? updatePokemon() : addPokemon()">
+    <input type="text" formControlName="name" placeholder="Nombre del Pokémon" required>
+    <input type="float" formControlName="height" placeholder="Altura (m)" required min="1">
+    <input type="number" formControlName="weight" placeholder="Peso (kg)" required min="1">
+    <input type="text" formControlName="abilities" placeholder="Habilidades (separadas por comas)" required>
+    <input type="url" formControlName="image" placeholder="URL de imagen" required>
+    <textarea formControlName="description" placeholder="Descripción" required></textarea>
+
+    <button type="submit">{{ editMode ? 'Actualizar' : 'Agregar' }}</button>
+  </form>
+
+  <div class="pokemon-grid">
+    <div class="pokemon-card" *ngFor="let pokemon of pokemons; let i = index">
+      <img [src]="pokemon.image" [alt]="pokemon.name">
+      <h3>{{ pokemon.name }}</h3>
+      <p>Altura: {{ pokemon.height/10}} m</p>
+      <p>Peso: {{ pokemon.weight/10}} kg</p>
+      <p>Habilidades: {{ pokemon.abilities.join(', ') }}</p>
+      <p>Descripción: {{ pokemon.description }}</p>
+
+      <button (click)="editPokemon(i)">Editar</button>
+      <button (click)="deletePokemon(i)">Eliminar</button>
     </div>
   </div>
+</div>
+
   

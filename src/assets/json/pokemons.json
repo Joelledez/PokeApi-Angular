@@ -1,0 +1,18 @@
+[
+    {
+      "name": "Pikachu",
+      "height": 40,
+      "weight": 6,
+      "abilities": ["Static", "Lightning Rod"],
+      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+      "description": "Pikachu almacena electricidad en sus mejillas y la libera en combate."
+    },
+    {
+      "name": "Charmander",
+      "height": 60,
+      "weight": 8.5,
+      "abilities": ["Blaze", "Solar Power"],
+      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
+      "description": "Charmander tiene una llama en la cola que refleja su salud y estado emocional."
+    }
+  ]

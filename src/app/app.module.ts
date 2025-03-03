@@ -27,6 +27,7 @@ import { CrudComponent } from './components/crud/crud.component';
     ReactiveFormsModule,
     CommonModule,
     RouterModule,
+
   ],
   providers: [
     provideClientHydration(withEventReplay()),

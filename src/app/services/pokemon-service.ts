@@ -10,7 +10,7 @@ name: string;
 export class PokemonService {
   private apiUrl = 'https://pokeapi.co/api/v2/pokemon';
 
-  private http = inject(HttpClient);
+  constructor(private http: HttpClient) {}
 
   getPokemons(searchTerm: string, limit: number = 5): Observable<any[]> {
     return this.http.get<{ results: { name: string; url: string; }[]; }>(`${this.apiUrl}?limit=1000`).pipe(

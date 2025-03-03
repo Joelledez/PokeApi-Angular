@@ -10,7 +10,7 @@
     <div class="pokemonsTable">
         <div *ngFor="let pokemon of pokemons">
           <div class="pokemon-card">
-            <button class="details-button" [routerLink]="['/pokemon', pokemon.name]" >{{ pokemon.name }}</button>
+            <button class="details-button" [routerLink]="['/pokemon', pokemon.name]" >{{ pokemon.name | titlecase }}</button>
           </div>
         </div>
       </div>

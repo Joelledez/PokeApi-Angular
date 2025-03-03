@@ -3,12 +3,12 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: black;
+    background: whitesmoke;
     padding: 20px;
   }
   
   .pokemon-card {
-    background: whitesmoke;
+    background: #ffcc00;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -36,7 +36,7 @@
   
   .pokemon-info p {
     font-size: 16px;
-    color: #555;
+    color: #333;
     font-family: 'PokemonSolid', sans-serif;
   }
   
@@ -48,7 +48,7 @@
   li {
     font-size: 14px;
     color: white;
-    background:black;
+    background: #f03131;
     padding: 5px 10px;
     border-radius: 5px;
     display: inline-block;
@@ -68,16 +68,16 @@
   
   .back-button {
     margin-top: 15px;
-    text-decoration: none;
     color: white;
-    background: black;
-    padding: 10px 15px;
-    border-radius: 8px;
+    background:  #f03131;
+    padding: 10px;
+    border-radius: 5px;
     font-weight: bold;
-    transition: background 0.3s;
+    transition: background 0.3s, transform 0.2s;
     font-family: 'PokemonSolid', sans-serif;
   }
   
   .back-button:hover {
     background: #f03131;
+    transform: scale(1.05)
   }

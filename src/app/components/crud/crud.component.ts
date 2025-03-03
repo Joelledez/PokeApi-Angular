@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Pokemon } from '../../interfaces/pokemon-interface';
+import { CrudService } from '../../services/crud.service'; // ✅ Importar el nuevo servicio
 
 @Component({
   selector: 'app-crud',
@@ -8,13 +9,13 @@ import { Pokemon } from '../../interfaces/pokemon-interface';
   templateUrl: './crud.component.html',
   styleUrl: './crud.component.css'
 })
-export class CrudComponent {
+export class CrudComponent implements OnInit {
   pokemons: Pokemon[] = [];
   pokemonForm: FormGroup;
-  editMode: boolean = false;
+  editMode = false;
   editingPokemonIndex: number | null = null;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private db: CrudService) {
     this.pokemonForm = this.fb.group({
       name: ['', Validators.required],
       height: ['', Validators.required],
@@ -25,81 +26,65 @@ export class CrudComponent {
     });
   }
 
-  ngOnInit(): void {
-    this.loadInitialPokemons();
+  async ngOnInit() {
+    this.pokemons = await this.db.getPokemons(); // Cargar Pokémon desde IndexedDB
   }
 
-  loadInitialPokemons(): void {
-    this.pokemons = [
-      {
-        name: 'Pikachu',
-        height: 40,
-        weight: 6,
-        abilities: ['Static', 'Lightning Rod'],
-        image: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png',
-        description: 'Pikachu almacena electricidad en sus mejillas y la libera en combate.'
-      },
-      {
-        name: 'Charmander',
-        height: 60,
-        weight: 8.5,
-        abilities: ['Blaze', 'Solar Power'],
-        image: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png',
-        description: 'Charmander tiene una llama en la cola que refleja su salud y estado emocional.'
-      }
-    ];
-  }
-
-  addPokemon(): void {
+  async addPokemon() {
     if (this.pokemonForm.invalid) return;
 
     const newPokemon: Pokemon = {
       name: this.pokemonForm.value.name,
-      height: this.pokemonForm.value.height,
-      weight: this.pokemonForm.value.weight,
+      height: this.pokemonForm.value.height*100,
+      weight: this.pokemonForm.value.weight/10,
       abilities: this.pokemonForm.value.abilities.split(','),
       image: this.pokemonForm.value.image,
       description: this.pokemonForm.value.description
     };
 
-    this.pokemons.push(newPokemon);
+    await this.db.savePokemon(newPokemon); // Guardar en IndexedDB
+    this.pokemons = await this.db.getPokemons(); // Recargar lista
     this.pokemonForm.reset();
   }
 
-  editPokemon(index: number): void {
+  editPokemon(index: number) {
     this.editMode = true;
     this.editingPokemonIndex = index;
     const pokemon = this.pokemons[index];
+
     this.pokemonForm.patchValue({
       name: pokemon.name,
-      height: pokemon.height,
-      weight: pokemon.weight,
+      height: pokemon.height/10,
+      weight: pokemon.weight/10,
       abilities: pokemon.abilities.join(','),
       image: pokemon.image,
       description: pokemon.description
     });
   }
 
-  updatePokemon(): void {
+  async updatePokemon() {
     if (this.pokemonForm.invalid || this.editingPokemonIndex === null) return;
 
-    this.pokemons[this.editingPokemonIndex] = {
+    const updatedPokemon: Pokemon = {
       name: this.pokemonForm.value.name,
-      height: this.pokemonForm.value.height,
-      weight: this.pokemonForm.value.weight,
+      height: this.pokemonForm.value.height*10,
+      weight: this.pokemonForm.value.weight*10,
       abilities: this.pokemonForm.value.abilities.split(','),
       image: this.pokemonForm.value.image,
       description: this.pokemonForm.value.description
     };
 
+    await this.db.updatePokemon(this.pokemons[this.editingPokemonIndex].name, updatedPokemon);
+    this.pokemons = await this.db.getPokemons();
     this.cancelEdit();
   }
 
-  deletePokemon(index: number): void {
-    this.pokemons.splice(index, 1);
+  async deletePokemon(index: number) {
+    await this.db.deletePokemon(this.pokemons[index].name);
+    this.pokemons = await this.db.getPokemons();
   }
 
-  cancelEdit(): void {
+  cancelEdit() {
     this.editMode = false;
     this.editingPokemonIndex = null;
     this.pokemonForm.reset();

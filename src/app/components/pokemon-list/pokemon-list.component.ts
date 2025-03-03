@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PokemonService } from '../../services/pokemon-service';
 import { FormBuilder, FormGroup,ReactiveFormsModule } from '@angular/forms';
 import { Pokemon } from '../../interfaces/pokemon-interface';
+import { CrudService } from '../../services/crud.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -14,13 +16,10 @@ import { Pokemon } from '../../interfaces/pokemon-interface';
 export class PokemonListComponent implements OnInit {
   title = 'Pokedex';
   pokemons: Pokemon[] = [];
-  searchForm!: FormGroup; 
+  searchForm!: FormGroup;
 
-  pokemonSelect(name: string): void { 
-    this.router.navigate(['/pokemon', name]);
-  }
-  
   constructor(
+    @Inject(CrudService) private crudService: CrudService,
     @Inject(PokemonService) private pokemonService: PokemonService,
     private fb: FormBuilder,
     private router: Router
@@ -30,22 +29,33 @@ export class PokemonListComponent implements OnInit {
     this.searchForm = this.fb.group({
       searchValue: ['']
     });
-    this.fetchPokemons();  
+    this.fetchPokemons();
   }
 
   fetchPokemons(): void {
-    const searchTerm = this.searchForm.get('searchValue')?.value || '';  
-    this.pokemonService.getPokemons(searchTerm).subscribe(
-      (pokemons) => {
-        this.pokemons = pokemons;
+    const searchTerm = this.searchForm.get('searchValue')?.value || '';
+    
+    forkJoin([
+      this.crudService.getPokemons(),
+      this.pokemonService.getPokemons(searchTerm)
+    ]).subscribe(
+      ([crudPokemons, apiPokemons]) => {
+        const combinedPokemons = [...crudPokemons, ...apiPokemons];
+        this.pokemons = combinedPokemons.filter(pokemon =>
+          pokemon.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
       },
-      (error) => {
+      error => {
         console.error('Error al buscar Pokémon:', error);
       }
     );
   }
 
   onSearchSubmit(): void {
-    this.fetchPokemons();  
+    this.fetchPokemons();
+  }
+
+  pokemonSelect(name: string): void {
+    this.router.navigate(['/pokemon', name]);
   }
 }
