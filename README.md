@@ -25,7 +25,7 @@ Once the server is running, open your browser and navigate to `http://localhost:
 
 ## ChatGPT API
 
-To make work the ChatGPT API contact me to my email joelledez2812@gmail.com:
+To make work the ChatGPT API contact me to my email joelledez2812@gmail.com to give you key.
 
 Once you enter the key in the service.ts the ChatGPT API will work correctly.
 
