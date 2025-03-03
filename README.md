@@ -2,9 +2,9 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.0.
 
-## Development server
+## Development installs
 
-To start the local host, run:
+To start the local server, first install the following commands:
 
 ```bash
 npm install -g @angular/cli
@@ -12,6 +12,12 @@ npm install vitest --save-dev
 npm install dexie
 npm install @angular/compiler --save-dev
 npm install @angular/platform-browser-dynamic --save-dev
+```
+## Development server
+
+To start the local host, run:
+
+```bash
 ng serve
 ```
 
